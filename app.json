@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "redwire",
+    "slug": "redwire",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "redwire"
+}
