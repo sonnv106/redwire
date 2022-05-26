@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 
-const VideosScreen = () => {
+const VideosScreen = ({navigation}) => {
   return (
     <View>
       <Text>Videos</Text>
+      <Button title="See video" onPress={()=>navigation.navigate('Video_screen')}/>
     </View>
   );
 };

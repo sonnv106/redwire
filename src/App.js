@@ -1,24 +1,31 @@
-import "react-native-gesture-handler";
+import 'react-native-gesture-handler';
 import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Stack, HomeStack, VideosStack } from "./routes/stack";
-
 import VideosScreen from "./components/home/videos";
 import HomeScreen from "./components/home/articles";
 import AuthScreen from "./components/auth";
-
+import ProfileScreen from './components/user/profile/profile';
+import SideDrawerCustom from './utils/customDrawer';
+import {Colors} from './utils/tools'
 const Drawer = createDrawerNavigator();
 
 const MainDrawer = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={HomeStack} />
-        <Drawer.Screen name="Videos" component={VideosStack} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator 
+      drawerContent={(props)=><SideDrawerCustom {...props}/>}
+      screenOptions={{
+        drawerStyle:{
+          backgroundColor: Colors.black
+        }
+      }}
+    >
+      <Drawer.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
+      <Drawer.Screen name="Videos" component={VideosStack}   options={{headerShown: false}}/>
+      <Drawer.Screen name='Profile' component={ProfileScreen}/>
+    </Drawer.Navigator>
   );
 };
 
@@ -30,7 +37,11 @@ class App extends Component {
         <Stack.Navigator>
           {this.props.auth.isAuth ? (
             <>
-              <Stack.Screen name="Main" component={MainDrawer} />
+              <Stack.Screen name="Main" 
+              component={MainDrawer} 
+              options={{
+                headerShown: false
+              }}/>
             </>
           ) : (
             <Stack.Screen name="AuthScreen" component={AuthScreen} />
