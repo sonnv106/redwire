@@ -4,12 +4,14 @@ import { Button } from "react-native-elements";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { Colors, LogoText } from "./tools";
 const SideDrawerCustom = (props) => {
+  //danh sách stack
   const mainOptions = [
     { title: "News", location: "Home" },
     { title: "Videos", location: "Videos" },
     { title: "Profile", location: "Profile" },
   ];
   return (
+    //nội dung của thanh drawer navigation
     <DrawerContentScrollView {...props} >
       <View>
         <LogoText/>
