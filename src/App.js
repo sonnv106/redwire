@@ -3,12 +3,13 @@ import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { connect } from "react-redux";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Stack, HomeStack, VideosStack } from "./routes/stack";
+import { Stack, HomeStack, VideosStack, screenOptions } from "./routes/stack";
 import VideosScreen from "./components/home/videos";
 import HomeScreen from "./components/home/articles";
 import AuthScreen from "./components/auth";
 import ProfileScreen from './components/user/profile/profile';
 import SideDrawerCustom from './utils/customDrawer';
+import VideoScreen from './components/home/videos/video';
 import {Colors} from './utils/tools'
 const Drawer = createDrawerNavigator();
 
@@ -42,6 +43,8 @@ class App extends Component {
               options={{
                 headerShown: false
               }}/>
+              <Stack.Screen name="VideoScreen" component={VideoScreen}  options={{...screenOptions,
+              headerBackTitleVisible: false}} />
             </>
           ) : (
             <Stack.Screen name="AuthScreen" component={AuthScreen} />
