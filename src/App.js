@@ -25,7 +25,7 @@ const MainDrawer = () => {
     >
       <Drawer.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
       <Drawer.Screen name="Videos" component={VideosStack}   options={{headerShown: false}}/>
-      <Drawer.Screen name='Profile' component={ProfileScreen}/>
+      <Drawer.Screen name='Profile' component={ProfileScreen} options={{headerShown: false}}/>
     </Drawer.Navigator>
   );
 };
