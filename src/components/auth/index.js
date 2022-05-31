@@ -21,8 +21,8 @@ const AuthScreen = () => {
         <LogoText />
         <Formik
           initialValues={{
-            email: "sonnguyen106mh@gmail.com",
-            password: "testing123",
+            email: "",
+            password: "",
           }}
           validationSchema={Yup.object({
             email: Yup.string().email().required("The email is required"),
@@ -51,6 +51,11 @@ const AuthScreen = () => {
                 inputStyle={styles.inputStyle}
                 placeholderTextColor={Colors.grey}
                 inputContainerStyle={styles.inputContainerStyle}
+
+                renderErrorMessage={errors.email && touched.email}
+                errorMessage={errors.email}
+                errorStyle={{color: Colors.black}}
+
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
@@ -66,6 +71,11 @@ const AuthScreen = () => {
                 inputStyle={styles.inputStyle}
                 placeholderTextColor={Colors.grey}
                 inputContainerStyle={styles.inputContainerStyle}
+
+                renderErrorMessage={errors.password && touched.password}
+                errorMessage={errors.password}
+                errorStyle={{color: Colors.black}}
+
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
                 value={values.password}
@@ -84,7 +94,7 @@ const AuthScreen = () => {
                 }}
                 titleStyle={{ width: "100%" }}
                 // loading={}
-                // onPress={}
+                onPress={handleSubmit}
               />
               <Button
                 type="clear"
