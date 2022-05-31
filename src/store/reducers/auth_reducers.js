@@ -1,6 +1,6 @@
 const INITIAL_STATE  = {
     user: [],
-    isAuth: true,
+    isAuth: false,
     error: null
 }
 export default function(state = INITIAL_STATE, action){
