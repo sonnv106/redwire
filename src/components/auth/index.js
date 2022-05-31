@@ -3,17 +3,27 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../store/api";
+
 import { Input, Button } from "react-native-elements";
 import { LogoText, Colors } from "../../utils/tools";
 import { showToast } from "../../utils/tools";
 const AuthScreen = () => {
+  const dispatch = useDispatch()
   const [secureEntry, setSecureEntry] = useState(true);
   const [formType, setFormType] = useState(true);
   const handleSubmit = (values) => {
-    alert(values)
+    if(formType){
+      //register
+      dispatch(registerUser(values))
+
+    }else{
+      //sign in
+    }
+    
   };
   useEffect(()=>{
-    showToast('error', 'sorry' , ' Faild to sign in')
+    // showToast('error', 'sorry' , ' Faild to sign in')
   },[])
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
