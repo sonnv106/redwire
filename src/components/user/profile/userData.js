@@ -6,7 +6,6 @@ import * as Yup from "yup";
 
 const UserData = () => {
   const handleSubmit = (values) => {
-      console.log(values)
     alert(JSON.stringify(values));
   };
   return (

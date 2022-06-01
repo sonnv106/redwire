@@ -1,5 +1,6 @@
-import {firebase, usersCollection} from '../../firebase';
+import {firebase, db} from '../../firebase';
 
+import { doc, setDoc} from 'firebase/firestore/lite'
 
 export const registerUser= async ({email, password})=>{
     try{
@@ -9,10 +10,11 @@ export const registerUser= async ({email, password})=>{
              uid: user.uid,
              email: email, 
         }
-        
-        console.log(JSON.stringify(usersCollection))
-        await usersCollection.doc(user.uid).set(userProfile).then(()=>console.log('success'))
-        
+        await setDoc(doc(db, 'users', user.uid),{
+            uid: user.uid,
+            email: email, 
+        })
+
         return {isAuth: true, user: userProfile }
     }catch(error){
         return {error: error.message}

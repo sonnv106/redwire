@@ -1,4 +1,5 @@
-import firebase from 'firebase/compat/app';
+import firebase,{initializeApp} from 'firebase/compat/app';
+import { getFirestore } from 'firebase/firestore/lite';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
@@ -12,11 +13,9 @@ const config = {
     measurementId: "G-H5MQWCQDQK"
   };
   
-  firebase.initializeApp(config);
-  const DB = firebase.firestore();
-  const usersCollection = DB.collection('users');
-
+   const app = firebase.initializeApp(config)
+    const db = getFirestore(app)
   export {
       firebase,
-      usersCollection
+        db
   }
