@@ -10,7 +10,9 @@ import AuthScreen from "./components/auth";
 import ProfileScreen from './components/user/profile/profile';
 import SideDrawerCustom from './utils/customDrawer';
 import VideoScreen from './components/home/videos/video';
+import Splash from './components/auth/splash'
 import {Colors} from './utils/tools'
+import { autoSignin } from './store/actions';
 const Drawer = createDrawerNavigator();
 
 const MainDrawer = () => {
@@ -31,6 +33,14 @@ const MainDrawer = () => {
 };
 
 class App extends Component {
+  state = {
+    loading: true
+  }
+  componentDidMount(){
+    this.props.dispatch(autoSignin()).then(()=>{
+      this.setState({loading: false})
+    })
+  }
   render() {
    
     return (
@@ -47,6 +57,10 @@ class App extends Component {
               headerBackTitleVisible: false}} />
             </>
           ) : (
+            this.state.loading
+            ?
+            <Stack.Screen name="Splash" component={Splash} options={{headerShown: false}} /> 
+            :
             <Stack.Screen name="AuthScreen" component={AuthScreen} options={{headerShown: false}} />
           )}
         </Stack.Navigator>

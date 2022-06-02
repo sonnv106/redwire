@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, clearAuthError } from "../../store/actions";
+import { registerUser, clearAuthError, loginUser} from "../../store/actions";
 import { useFocusEffect } from "@react-navigation/native";
 import { Input, Button } from "react-native-elements";
 import { LogoText, Colors } from "../../utils/tools";
@@ -18,10 +18,10 @@ const AuthScreen = () => {
     setLoading(true);
     if (formType) {
       //register
-
       dispatch(registerUser(values));
     } else {
       //sign in
+      dispatch(loginUser(values))
     }
   };
   useEffect(() => {
@@ -121,7 +121,7 @@ const AuthScreen = () => {
                   marginTop: 20,
                 }}
                 titleStyle={{ width: "100%", color: Colors.white }}
-                // loading={}
+                // loading={loading}
                 onPress={() => setFormType(!formType)}
               />
             </>
