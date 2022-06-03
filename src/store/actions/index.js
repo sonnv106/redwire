@@ -12,6 +12,10 @@ export const autoSignin = ()=>({
     type: 'AUTH_USER',
     payload: api.autoSignin()
 })
+export const logoutUser = ()=>({
+    type: 'LOGOUT_USER',
+    payload: api.logoutUser()
+})
 export const clearAuthError = ()=>({
     type: 'CLEAR_AUTH_ERROR'
 })

@@ -35,18 +35,17 @@ export const loginUser = async ({ email, password }) => {
     return { error: error.message };
   }
 };
-export const autoSignin = () =>(
-
-   new Promise((resolve, reject) => {
+export const autoSignin = () =>
+  new Promise((resolve, reject) => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user)=>{
-      console.log("user//"+JSON.stringify(user))
-      if(user){
-        resolve({isAuth: true, user: user.uid})
-      }else{
-        return { isAuth: false, user: []} 
+    onAuthStateChanged(auth, (user) => {
+    
+      if (user) {
+        resolve({ isAuth: true, user: user.uid });
+      } else {
+        resolve({ isAuth: false, user: [] });
       }
-    })
+    });
     // firebase.auth().onAuthStateChanged( (user)=> {
     //   console.log("type of user "+user)
     //   if (user) {
@@ -58,4 +57,7 @@ export const autoSignin = () =>(
     //     return { isAuth: false, user: []}
     //   }
     // });
-  }))
+  });
+  export const logoutUser =  () => {
+    firebase.auth().signOut()
+  };
