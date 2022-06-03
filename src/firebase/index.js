@@ -17,5 +17,5 @@ const config = {
     const db = getFirestore(app)
   export {
       firebase,
-        db
+      db
   }
