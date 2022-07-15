@@ -1,6 +1,6 @@
 import { firebase, db } from "../../firebase";
 
-import { doc, setDoc, getDoc } from "firebase/firestore/lite";
+import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore/lite";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 export const registerUser = async ({ email, password }) => {
   try {
@@ -61,3 +61,20 @@ export const autoSignin = () =>
   export const logoutUser =  () => {
     firebase.auth().signOut()
   };
+
+  //update thong tin nguoi dung
+  export const updateUserData =async (values, user)=>{
+    try{
+      
+      const docRef = doc(db, "users", user);
+      await updateDoc(docRef,{...values});
+      const newUser = {
+        ...user,
+        ...values
+      }
+      
+      return {user: newUser, error: null}
+    }catch(error){
+      return {user: user,error: error}
+    }
+  }

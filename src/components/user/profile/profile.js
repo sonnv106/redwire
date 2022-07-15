@@ -6,7 +6,7 @@ const ProfileScreen = ({navigation}) => {
   return (
     <ScrollView>
       <Appbar.Header>
-          <Appbar.BackAction onPress={()=>alert('back')}/>
+          <Appbar.BackAction onPress={()=>navigation.navigate("Home_screen")}/>
           <Appbar.Content title="Profile" subtitle="redwire"/>
       </Appbar.Header>
       <View style={{padding: 20}}> 

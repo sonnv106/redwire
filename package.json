@@ -32,13 +32,13 @@
     "react-native-web": "0.17.7",
     "react-native-youtube": "^2.0.2",
     "react-redux": "^8.0.1",
-    "reactotron-react-native": "^5.0.2",
     "redux": "^4.2.0",
     "redux-promise": "^0.6.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "reactotron-react-native": "^5.0.2"
   },
   "private": true
 }

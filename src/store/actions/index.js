@@ -19,3 +19,7 @@ export const logoutUser = ()=>({
 export const clearAuthError = ()=>({
     type: 'CLEAR_AUTH_ERROR'
 })
+export const updateUserData = (values, user)=>({
+    type: 'UPD_USER_DATA',
+    payload: api.updateUserData(values, user)
+})

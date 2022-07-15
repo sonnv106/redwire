@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { Appbar, TextInput, Divider, Button, Title } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import { showToast } from "../../../utils/tools";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserData, clearAuthError } from "../../../store/actions/index";
 const UserData = () => {
+  const [loading, setLoading] = useState(false);
+  const error = useSelector((state) => state.auth.error);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleSubmit = (values) => {
-    alert(JSON.stringify(values));
+    setLoading(true);
+    dispatch(updateUserData(values, user)).then(({ payload }) => {
+      console.log("paypay", payload)
+      setLoading(false);
+      if (payload.error) {
+        showToast("error", "Ups !!", "Try again later");
+      } else {
+        showToast("success", "Congratulations", "Your profile was updated");
+        
+      }
+    });
   };
+  useEffect(() => {
+    if (error) {
+    }
+  }, [error]);
+  useFocusEffect(
+    useCallback(()=>{
+      return ()=> dispatch(clearAuthError())
+    },[])
+  )
   return (
     <Formik
       enableReinitialize={true}
       initialValues={{
-        name: "",
-        lastname: "",
-        age: "",
+        name: user.name ? user.name : "",
+        lastname: user.lastname ? user.lastname : "",
+        age: user.age ? user.age : "",
       }}
       validationSchema={Yup.object({
         name: Yup.string().required("The name is required"),
@@ -57,7 +83,12 @@ const UserData = () => {
               error={errors.age && touched.age ? true : false}
               mode="flat"
             />
-            <Button onPress={handleSubmit} mode="contained">
+            <Button
+              onPress={handleSubmit}
+              mode="contained"
+              disabled={loading}
+              loading={loading}
+            >
               Update
             </Button>
           </View>

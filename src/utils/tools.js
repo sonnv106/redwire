@@ -29,7 +29,7 @@ export const showToast = (type, text1, text2)=>{
                 text1,
                 text2,
                 position: 'bottom',
-                visibilityTime: 4000,
+                visibilityTime: 2000,
                 autoHide: true, 
                 bottomOffset: 50
               });
@@ -40,7 +40,7 @@ export const showToast = (type, text1, text2)=>{
                 text1,
                 text2,
                 position: 'bottom',
-                visibilityTime: 4000,
+                visibilityTime: 2000,
                 autoHide: true, 
                 bottomOffset: 50
               });
