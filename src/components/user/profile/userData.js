@@ -15,7 +15,6 @@ const UserData = () => {
   const handleSubmit = (values) => {
     setLoading(true);
     dispatch(updateUserData(values, user)).then(({ payload }) => {
-      console.log("paypay", payload)
       setLoading(false);
       if (payload.error) {
         showToast("error", "Ups !!", "Try again later");
@@ -30,6 +29,7 @@ const UserData = () => {
     }
   }, [error]);
   useFocusEffect(
+
     useCallback(()=>{
       return ()=> dispatch(clearAuthError())
     },[])
