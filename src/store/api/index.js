@@ -5,14 +5,12 @@ import {
   setDoc,
   getDoc,
   updateDoc,
-  serverTimestamp,
   collection,
   query,
   where,
   orderBy,
   limit,
   getDocs,
-  DocumentSnapshot,
   startAfter,
 } from "firebase/firestore/lite";
 import { getAuth, onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
@@ -100,15 +98,12 @@ export const getArticles = async () => {
       limit(4)
     );
     const querySnapshot = await getDocs(q);
-
     //bai viet cuoi cung
     const lastPostVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-
-    let newArticles = querySnapshot.docs.map((doc) => ({
+    const newArticles = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    
     return { posts: newArticles, lastPostVisible: lastPostVisible };
   } catch (error) {
     console.log(error);
@@ -116,7 +111,6 @@ export const getArticles = async () => {
 };
 export const getMoreArticles = async (articles) => {
   let posts = [...articles.posts];
-
   const lastPostVisible = articles.lastPostVisible;
   try {
     if (lastPostVisible) {
@@ -129,17 +123,68 @@ export const getMoreArticles = async (articles) => {
         limit(2)
       );
       const querySnapshot = await getDocs(q);
-      lastPostVisible = querySnapshot.docs[querySnapshot.docs.length - 1]
-      let newArticles = querySnapshot.docs.map((doc) => ({
+      const newArticles = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-     
-      return { posts: [...articles.posts, ...newArticles], lastPostVisible };
+      return {
+        posts: [...articles.posts, ...newArticles],
+        lastPostVisible: querySnapshot.docs[querySnapshot.docs.length - 1],
+      };
     }
   } catch (error) {
     alert(error);
-    
     return { posts, lastPostVisible };
+  }
+};
+export const getVideos = async ()=>{
+  try {
+    const videosRef = collection(db, "videos");
+    const q = query(
+      videosRef,
+      where("public", "==", 1),
+      orderBy("createdAt"),
+      limit(3)
+    );
+    
+    const querySnapshot = await getDocs(q);
+    //bai viet cuoi cung
+    // const lastVideoVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    const videos = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return { videos: videos, lastVideoVisible: querySnapshot.docs[querySnapshot.docs.length - 1] };
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getMoreVideos = async (articles) => {
+  let videos = [...articles.videos];
+  const lastVideoVisible = articles.lastVideoVisible;
+  try {
+    if (lastVideoVisible) {
+      const articlesRef = collection(db, "videos");
+      const q = query(
+        articlesRef,
+        where("public", "==", 1),
+        orderBy("createdAt"),
+        startAfter(lastVideoVisible),
+        limit(2)
+      );
+      const querySnapshot = await getDocs(q);
+      const newArticles = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      return {
+        videos: [...articles.videos, ...newArticles],
+        lastVideoVisible: querySnapshot.docs[querySnapshot.docs.length - 1],
+      };
+    }
+    return {videos, lastVideoVisible}
+  } catch (error) {
+    alert(error);
+    return { videos, lastVideoVisible };
   }
 };

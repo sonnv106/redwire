@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { Card } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +61,6 @@ const HomeScreen = ({ navigation }) => {
           if (!loadingMore) {
             setLoadingMore(true);
             dispatch(getMoreArticles(articles)).then(() => {
-             
               setLoadingMore(false);
             });
           }
@@ -69,6 +69,9 @@ const HomeScreen = ({ navigation }) => {
       scrollEventThrottle={400}
     >
       {articles && articles.posts ? renderCard() : null}
+      {loadingMore? <View style={{marginVertical: 50}}>
+        <ActivityIndicator size={'small'} color={'black'}/>
+      </View>: null}
     </ScrollView>
   );
 };
